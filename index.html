@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Opal乳白色 | Art Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Global Fixed Navigation Header Menu -->
+    <header class="site-header">
+        <div class="logo">Opal乳白色</div>
+        <nav class="main-nav">
+            <a href="#" id="navHome" class="active">Home</a>
+            <a href="#" id="navWorks">Works</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+        </nav>
+    </header>
+
+    <!-- VIEW CONTAINER 1: Home Landing View (Hero + 3 Columns Grid) -->
+    <main id="viewLanding" class="view-section active-view">
+        
+        <!-- Cinematic Fullscreen Hero Stage Header Section -->
+        <section class="hero-stage">
+            <div class="hero-image-wrap">
+                <img src="images/full/walalalar.webp" alt="Featured Masterpiece" class="hero-bg-img">
+            </div>
+            <div class="hero-content">
+                <blockquote class="hero-quote">
+                    “ * wooahh .. ”
+                </blockquote>
+            </div>
+            <!-- Pulsing Scroll Down Target Indicator -->
+            <button class="scroll-down-btn" id="btnScrollToGrid" aria-label="Scroll down to columns">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </button>
+        </section>
+
+        <!-- Front Page 3-Column Split Entry System -->
+        <div class="category-grid" id="landingCategoryGrid">
+            
+            <!-- Column 1: 2D Digital Art with Floating Sub-Style Menu Target -->
+            <div class="category-card card-2d" data-category="2d">
+                <div class="card-image-wrap">
+                    <img src="images/full/woahh.webp" alt="2D Digital Art Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>2D原画</h2>
+                    <p>DIGITAL 2D</p>
+                    
+                    <!-- Floating Sub-Style Controls Navigation Links -->
+                    <div class="card-sub-menu">
+                        <button class="sub-style-btn" data-filter-style="anime">
+                            Stylized Works <span>(アニメ)</span>
+                        </button>
+                        <button class="sub-style-btn" data-filter-style="thick">
+                            Thick Paint Works <span>(厚塗り)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: 3D Digital Sculptures -->
+            <div class="category-card" data-category="3d">
+                <div class="card-image-wrap">
+                    <img src="https://picsum.photos" alt="3D Sculpting Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>3D雕像</h2>
+                    <p>DIGITAL 3D</p>
+                </div>
+            </div>
+
+            <!-- Column 3: Animation Projects -->
+            <div class="category-card" data-category="animation">
+                <div class="card-image-wrap">
+                    <img src="https://picsum.photos" alt="Animation Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>动画</h2>
+                    <p>ANIMATION</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- VIEW CONTAINER 2: Chronological Multi-Style Archive View -->
+    <section id="viewGalleryArchive" class="view-section">
+        <div class="archive-container">
+            
+            <!-- Timeline Era Segment: 2026 -->
+            <div class="archive-year-group">
+                <h3 class="year-header">2026</h3>
+                <div class="archive-grid">
+                    
+                    <!-- Item Block A: Anime Styled Art Variant -->
+                    <div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/Gothic veil lady.webp" 
+                         data-title="Gothic Anime Character" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/Gothic veil lady thumb.webp" alt="Anime Illustration Artwork Copy">
+                    </div>
+
+<div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/lolipop girl.webp" 
+                         data-title="she lolipopin" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/lolipop girl thumb.webp" alt="Anime Illustration Artwork Copy">
+                    </div>
+
+<div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/sailorcat.webp" 
+                         data-title="she lolipopin" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/sailorcat thumb.webp" alt="Anime Illustration Artwork Copy">
+                    </div>
+
+
+                    <!-- Item Block B: Thick Paint Technique Variant -->
+                    <div class="thumb-item" 
+                         data-style="thick" 
+                         data-full="images/full/erica agin.webp" 
+                         data-title="Winged Guardian" 
+                         data-desc="Experimental fluid painterly thickness illustration assignment copy file.">
+                        <img src="images/full/erica agin.webp" alt="Thick Paint Master Copy Artwork">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STAGE 3: Immersive Core Popup Lightbox Overlay Modal Component -->
+    <div id="lightboxModal" class="lightbox-modal" aria-hidden="true">
+        <button class="lightbox-arrow arrow-left" id="lbPrev" aria-label="Previous artwork">&lsaquo;</button>
+        
+        <div class="lightbox-content">
+            <img id="lightboxMainImg" src="" alt="Active Canvas Artwork Viewport">
+        </div>
+
+        <button class="lightbox-arrow arrow-right" id="lbNext" aria-label="Next artwork">&rsaquo;</button>
+
+        <footer class="lightbox-footer">
+            <div class="lightbox-meta">
+                <h4 id="lbTitle">作品简介:</h4>
+                <p id="lbDesc">Descriptive text line placeholder information layout matrix node.</p>
+            </div>
+            <div class="lightbox-actions">
+                <button class="action-btn" id="btnZoomHD" title="Deep Zoom Engine Terminal Context">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <span>高清放大</span>
+                </button>
+                <button class="action-btn" id="btnDownloadAsset" title="Physical Asset Download Direct Path">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L5.33 8.67h4V14h5.34V8.67h4L12 2z"/></svg>
+                    <span>下载</span>
+                </button>
+                <button class="action-btn" id="btnCloseLightbox" title="Return to Archive Framework Grid">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    <span>关闭</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
