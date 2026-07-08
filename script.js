@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- Core View Layout Switcher Targets ---
+    // Select View Target Framework Containers
     const viewLanding = document.getElementById('viewLanding');
     const viewGalleryArchive = document.getElementById('viewGalleryArchive');
     const lightboxModal = document.getElementById('lightboxModal');
     
-    // --- Top Navigation Links ---
+    // Header Links
     const navHome = document.getElementById('navHome');
     const navWorks = document.getElementById('navWorks');
     
-    // --- Chevron Hero Down-Scroll Anchors ---
+    // Hero Click Scroll Links
     const btnScrollToGrid = document.getElementById('btnScrollToGrid');
     const landingCategoryGrid = document.getElementById('landingCategoryGrid');
     
-    // --- Pop-up Lightbox Frame Elements ---
+    // Lightbox Frame Selectors
     const lightboxMainImg = document.getElementById('lightboxMainImg');
     const lbTitle = document.getElementById('lbTitle');
     const lbDesc = document.getElementById('lbDesc');
@@ -23,154 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnZoomHD = document.getElementById('btnZoomHD');
     const btnDownloadAsset = document.getElementById('btnDownloadAsset');
 
-    // --- Side Social Slide Menu Selectors ---
-    const btnToggleSocials = document.getElementById('btnToggleSocials');
-    const socialDropdownPanel = document.getElementById('socialDropdownPanel');
-
-    // --- Theme Toggle Selectors ---
-    const btnToggleTheme = document.getElementById('btnToggleTheme');
-    const themeIconMoon = document.querySelector('.icon-moon');
-    const themeIconsSun = document.querySelectorAll('.icon-sun');
-
-    // --- EN / JP Language Click Handles ---
-    const btnLangEN = document.getElementById('btnLangEN');
-    const btnLangJP = document.getElementById('btnLangJP');
-
-    // --- Core Component Gallery State Trackers ---
     let currentGallerySet = [];
     let currentPointerIndex = 0;
-    let currentLanguageCode = 'en';
 
-    // --- Theme State Initialization ---
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        setTheme(savedTheme);
-    }
-
-    function setTheme(theme) {
-        const html = document.documentElement;
-        if (theme === 'light') {
-            html.classList.add('light-mode');
-            if (themeIconMoon) themeIconMoon.style.display = 'none';
-            themeIconsSun.forEach(icon => icon.style.display = 'block');
-            localStorage.setItem('theme', 'light');
-        } else {
-            html.classList.remove('light-mode');
-            if (themeIconMoon) themeIconMoon.style.display = 'block';
-            themeIconsSun.forEach(icon => icon.style.display = 'none');
-            localStorage.setItem('theme', 'dark');
-        }
-    }
-
-    function toggleTheme() {
-        const html = document.documentElement;
-        const isLightMode = html.classList.contains('light-mode');
-        setTheme(isLightMode ? 'dark' : 'light');
-    }
-
-    if (btnToggleTheme) {
-        btnToggleTheme.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleTheme();
-        });
-    }
-
-    // Initialize theme on page load
-    initTheme();
-
-    // --- View Route Router Switcher ---
+    // --- Core Route Router Handler ---
     function navigateToView(targetView, fallbackActiveLink) {
-        if (!targetView) return;
+        viewLanding.classList.remove('active-view');
+        viewGalleryArchive.classList.remove('active-view');
         
-        if (viewLanding) viewLanding.classList.remove('active-view');
-        if (viewGalleryArchive) viewGalleryArchive.classList.remove('active-view');
-        
-        if (navHome) navHome.classList.remove('active');
-        if (navWorks) navWorks.classList.remove('active');
+        navHome.classList.remove('active');
+        navWorks.classList.remove('active');
 
         targetView.classList.add('active-view');
-        if (fallbackActiveLink) fallbackActiveLink.classList.add('active');
+        if(fallbackActiveLink) fallbackActiveLink.classList.add('active');
         
         window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
-    // --- Core Multi-Language Toggler System ---
-    function updateSiteLanguage(languageCode) {
-        currentLanguageCode = languageCode;
-        const localizedElements = document.querySelectorAll('[data-en][data-jp]');
-        
-        localizedElements.forEach(element => {
-            const translatedStringValue = element.getAttribute(`data-${languageCode}`);
-            if (translatedStringValue) {
-                // Safeguard any nested span elements inside buttons
-                const templateSpan = element.querySelector('span');
-                if (templateSpan) {
-                    element.innerHTML = translatedStringValue;
-                } else {
-                    element.textContent = translatedStringValue;
-                }
-            }
-        });
-        
-        if (languageCode === 'jp') {
-            if (btnLangJP) btnLangJP.classList.add('active-lang');
-            if (btnLangEN) btnLangEN.classList.remove('active-lang');
-            document.documentElement.setAttribute('lang', 'ja');
-        } else {
-            if (btnLangEN) btnLangEN.classList.add('active-lang');
-            if (btnLangJP) btnLangJP.classList.remove('active-lang');
-            document.documentElement.setAttribute('lang', 'en');
-        }
-    }
-
-    if (btnLangEN && btnLangJP) {
-        btnLangEN.addEventListener('click', (e) => { e.preventDefault(); updateSiteLanguage('en'); });
-        btnLangJP.addEventListener('click', (e) => { e.preventDefault(); updateSiteLanguage('jp'); });
-    }
-
-    // --- Sliding Hamburger Social Drawer Setup ---
-    if (btnToggleSocials && socialDropdownPanel) {
-        btnToggleSocials.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isMenuExpanded = socialDropdownPanel.getAttribute('aria-hidden') === 'false';
-            
-            socialDropdownPanel.setAttribute('aria-hidden', isMenuExpanded ? 'true' : 'false');
-            btnToggleSocials.classList.toggle('active-toggle');
-        });
-
-        window.addEventListener('click', () => {
-            socialDropdownPanel.setAttribute('aria-hidden', 'true');
-            btnToggleSocials.classList.remove('active-toggle');
-        });
-    }
-
-    // --- Header Link Clicks Configuration ---
-    if (navHome) {
-        navHome.addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateToView(viewLanding, navHome);
-        });
-    }
-
-    if (navWorks) {
-        navWorks.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelectorAll('.thumb-item').forEach(item => {
-                item.classList.remove('filtered-out');
-            });
-            navigateToView(viewGalleryArchive, navWorks);
-        });
-    }
-
-    // --- Chevron Hero Scroll Down Click Trigger ---
-    if (btnScrollToGrid && landingCategoryGrid) {
-        btnScrollToGrid.addEventListener('click', (e) => {
-            e.preventDefault();
-            landingCategoryGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    }
-
-    // --- Front Page Category Card Clicks ---
+    // FIX 2: Connect General Cards (Main 2D card now safely defaults to Stylized/Anime portfolio)
     document.querySelectorAll('.category-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.closest('.sub-style-btn')) return;
@@ -178,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryType = card.getAttribute('data-category');
             
             if (categoryType === '2d') {
+                console.log("Main 2D clicked: Defaulting archive flow to Anime layout styles");
                 document.querySelectorAll('.thumb-item').forEach(item => {
                     const itemStyle = item.getAttribute('data-style');
                     if (itemStyle === 'anime') {
@@ -195,13 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Sub-Style Segment Filtering Buttons Loop ---
+    // Sub-Menu Split Filter Buttons Logic Implementation
     document.querySelectorAll('.sub-style-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            e.preventDefault();
             e.stopPropagation();
             
             const chosenStyle = btn.getAttribute('data-filter-style');
+            console.log(`Filtering Archive Wall Target Matrix Context: ${chosenStyle}`);
 
             document.querySelectorAll('.thumb-item').forEach(item => {
                 const itemStyle = item.getAttribute('data-style');
@@ -215,31 +86,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Lightbox Sequence Event Loops ---
+    navHome.addEventListener('click', (e) => { e.preventDefault(); navigateToView(viewLanding, navHome); });
+    navWorks.addEventListener('click', (e) => { e.preventDefault(); navigateToView(viewGalleryArchive, navWorks); });
+
+    // Chevron Anchor Scroll Event Listener Hook
+    if (btnScrollToGrid && landingCategoryGrid) {
+        btnScrollToGrid.addEventListener('click', () => {
+            landingCategoryGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    // --- Lightbox Sequence Processing Loop ---
     const allThumbnails = Array.from(document.querySelectorAll('.thumb-item'));
 
-    allThumbnails.forEach((thumbnail) => {
+    allThumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', () => {
             currentGallerySet = allThumbnails.filter(item => !item.classList.contains('filtered-out'));
             currentPointerIndex = currentGallerySet.indexOf(thumbnail);
             renderActiveLightboxNode(thumbnail);
-            
-            // Show mobile navigation arrows
-            updateMobileArrows();
         });
     });
 
     function renderActiveLightboxNode(elementNode) {
-        if (!elementNode || !lightboxMainImg || !lbTitle || !lbDesc || !lightboxModal) return;
+        if (!elementNode) return;
         
         const fullResolutionSource = elementNode.getAttribute('data-full');
-        const metaTitle = elementNode.getAttribute('data-title') || "";
-        const metaDesc = elementNode.getAttribute('data-desc') || "";
+        const metaTitle = elementNode.getAttribute('data-title');
+        const metaDesc = elementNode.getAttribute('data-desc');
 
         lightboxMainImg.src = fullResolutionSource;
-        
-        const textPrefix = currentLanguageCode === 'jp' ? "作品解説: " : "Artwork Info: ";
-        lbTitle.textContent = textPrefix + metaTitle;
+        lbTitle.textContent = "作品简介: " + metaTitle;
         lbDesc.textContent = metaDesc;
 
         lightboxModal.setAttribute('aria-hidden', 'false');
@@ -251,97 +127,132 @@ document.addEventListener('DOMContentLoaded', () => {
         renderActiveLightboxNode(currentGallerySet[currentPointerIndex]);
     }
 
-    function updateMobileArrows() {
-        const isMobile = window.innerWidth <= 768;
-        if (lbPrev && lbNext) {
-            if (isMobile) {
-                lbPrev.classList.add('mobile-visible');
-                lbNext.classList.add('mobile-visible');
-            } else {
-                lbPrev.classList.remove('mobile-visible');
-                lbNext.classList.remove('mobile-visible');
-            }
-        }
-    }
+    lbNext.addEventListener('click', () => switchSlidePosition(1));  
+    lbPrev.addEventListener('click', () => switchSlidePosition(-1)); 
 
-    if (lbNext) lbNext.addEventListener('click', () => switchSlidePosition(1));  
-    if (lbPrev) lbPrev.addEventListener('click', () => switchSlidePosition(-1)); 
+    btnCloseLightbox.addEventListener('click', () => {
+        lightboxModal.setAttribute('aria-hidden', 'true');
+        lightboxMainImg.src = ""; 
+    });
 
-    if (btnCloseLightbox && lightboxModal && lightboxMainImg) {
-        btnCloseLightbox.addEventListener('click', () => {
-            lightboxModal.setAttribute('aria-hidden', 'true');
-            lightboxMainImg.src = ""; 
-        });
-    }
+    // --- Direct Physical Asset Downloader Bridge ---
+    btnDownloadAsset.addEventListener('click', () => {
+        const fileURL = lightboxMainImg.src;
+        if (!fileURL) return;
 
-    // --- Dynamic Canvas Downloader Trigger ---
-    if (btnDownloadAsset) {
-        btnDownloadAsset.addEventListener('click', () => {
-            if (!lightboxMainImg) return;
-            const fileURL = lightboxMainImg.src;
-            if (!fileURL) return;
+        const shadowAnchor = document.createElement('a');
+        shadowAnchor.href = fileURL;
+        shadowAnchor.download = `Opal_Artwork_${Date.now()}.jpg`;
+        document.body.appendChild(shadowAnchor);
+        shadowAnchor.click();
+        document.body.removeChild(shadowAnchor);
+    });
 
-            const shadowAnchor = document.createElement('a');
-            shadowAnchor.href = fileURL;
-            shadowAnchor.download = `Opal_Artwork_${Date.now()}.jpg`;
-            document.body.appendChild(shadowAnchor);
-            shadowAnchor.click();
-            document.body.removeChild(shadowAnchor);
-        });
-    }
+    // --- HD Zoom Engine Standalone Inspector Window Portal ---
+    btnZoomHD.addEventListener('click', () => {
+        const targetMasterSourceURL = lightboxMainImg.src;
+        if (!targetMasterSourceURL) return;
 
-    // --- Ultra-Compact Independent Inspector Pop-out Portal ---
-    if (btnZoomHD) {
-        btnZoomHD.addEventListener('click', () => {
-            if (!lightboxMainImg || !lightboxMainImg.src) return;
-            const url = lightboxMainImg.src;
-            const w = window.open('', '_blank');
-            if (!w) return;
-            w.document.write(`<!DOCTYPE html><html><head><title>Opal乳白色 | Canvas Inspector</title><style>body{margin:0;background:#000;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100vh}img{max-width:100%;max-height:100%;object-fit:contain}<\/style><\/head><body><img src="${url}" alt="Full Resolution Canvas"><\/body><\/html>`);
-            w.document.close();
-        });
-    }
+        const zoomViewportInstance = window.open('', '_blank');
+        zoomViewportInstance.document.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <title>Opal乳白色 | Deep Image Canvas Inspector</title>
+                <style>
+                    body {
+                        margin: 0; padding: 0; background: #000;
+                        overflow: hidden; display: flex;
+                        justify-content: center; align-items: center;
+                        width: 100vw; height: 100vh;
+                        user-select: none; -webkit-user-select: none;
+                    }
+                    .viewport-wrapper {
+                        width: 100%; height: 100%; display: flex;
+                        justify-content: center; align-items: center;
+                        cursor: grab;
+                    }
+                    .viewport-wrapper:active { cursor: grabbing; }
+                    img {
+                        max-width: 95%; max-height: 95%;
+                        object-fit: contain; transition: transform 0.12s ease-out;
+                        transform-origin: center center;
+                        will-change: transform;
+                    }
+                    .dock-panel {
+                        position: fixed; bottom: 30px; left: 50%;
+                        transform: translateX(-50%); background: rgba(10,10,10,0.9);
+                        border: 1px solid rgba(255,255,255,0.08); border-radius: 40px;
+                        padding: 8px 30px; display: flex; gap: 25px; z-index: 1000;
+                    }
+                    button {
+                        background: none; border: none; color: #aaa;
+                        font-size: 24px; cursor: pointer; padding: 5px 12px;
+                        transition: color 0.2s;
+                    }
+                    button:hover { color: #fff; }
+                </style>
+            </head>
+            <body>
+                <div class="viewport-wrapper" id="canvasStage">
+                    <img id="zoomTarget" src="${targetMasterSourceURL}" alt="HD Zoom Target">
+                </div>
+                <div class="dock-panel">
+                    <button id="ctrlIn">+</button>
+                    <button id="ctrlOut">-</button>
+                    <button id="ctrlReset">⟲</button>
+                </div>
+                <script>
+                    const img = document.getElementById('zoomTarget');
+                    const stage = document.getElementById('canvasStage');
+                    let currentScale = 1;
+                    let dragFlag = false;
+                    let pointerX, pointerY, driftX = 0, driftY = 0;
 
-    // --- Desktop Keyboard Handlers ---
+                    function applyCanvasTransforms() {
+                        img.style.transform = 'translate(' + driftX + 'px, ' + driftY + 'px) scale(' + currentScale + ')';
+                    }
+
+                    document.getElementById('ctrlIn').addEventListener('click', () => { currentScale += 0.35; applyCanvasTransforms(); });
+                    document.getElementById('ctrlOut').addEventListener('click', () => { if(currentScale > 0.4) currentScale -= 0.35; applyCanvasTransforms(); });
+                    document.getElementById('ctrlReset').addEventListener('click', () => { currentScale = 1; driftX = 0; driftY = 0; applyCanvasTransforms(); });
+
+                                        window.addEventListener('wheel', (e) => {
+                        e.preventDefault();
+                        if (e.deltaY < 0) currentScale += 0.12;
+                        else if (currentScale > 0.35) currentScale -= 0.12;
+                        applyCanvasTransforms();
+                    }, { passive: false });
+
+                    stage.addEventListener('mousedown', (e) => {
+                        dragFlag = true;
+                        pointerX = e.clientX - driftX;
+                        pointerY = e.clientY - driftY;
+                    });
+                    window.addEventListener('mousemove', (e) => {
+                        if (!dragFlag) return;
+                        driftX = e.clientX - pointerX;
+                        driftY = e.clientY - pointerY;
+                        applyCanvasTransforms();
+                    });
+                    window.addEventListener('mouseup', () => { dragFlag = false; });
+                <\/script>
+            </body>
+            </html>
+        `);
+        zoomViewportInstance.document.close();
+    });
+
+    // Keyboard Layout Interceptors
     document.addEventListener('keydown', (e) => {
-        if (lightboxModal && lightboxModal.getAttribute('aria-hidden') === 'false') {
+        if (lightboxModal.getAttribute('aria-hidden') === 'false') {
             if (e.key === 'ArrowRight') switchSlidePosition(1);
             if (e.key === 'ArrowLeft') switchSlidePosition(-1);
-            if (e.key === 'Escape' && lightboxMainImg) {
+            if (e.key === 'Escape') {
                 lightboxModal.setAttribute('aria-hidden', 'true');
                 lightboxMainImg.src = "";
             }
         }
     });
-
-    // --- Mobile Touch Swipe Support for Lightbox ---
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    function handleSwipe() {
-        if (lightboxModal && lightboxModal.getAttribute('aria-hidden') === 'false') {
-            if (touchEndX < touchStartX - 50) {
-                switchSlidePosition(1); // Swipe left = next
-            }
-            if (touchEndX > touchStartX + 50) {
-                switchSlidePosition(-1); // Swipe right = previous
-            }
-        }
-    }
-
-    lightboxModal?.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-
-    lightboxModal?.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-
-    // --- Responsive arrow visibility on resize ---
-    window.addEventListener('resize', () => {
-        if (lightboxModal && lightboxModal.getAttribute('aria-hidden') === 'false') {
-            updateMobileArrows();
-        }
-    });
 });
+

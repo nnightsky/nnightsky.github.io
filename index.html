@@ -8,219 +8,163 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+
     <!-- Global Fixed Navigation Header Menu -->
     <header class="site-header">
         <div class="logo">Opal乳白色</div>
-        <div class="header-right">
-            <nav class="main-nav">
-                <a href="#" id="navHome" class="active" data-en="Home" data-jp="ホーム">Home</a>
-                <a href="#" id="navWorks" data-en="Works" data-jp="作品">Works</a>
-            </nav>
-            
-            <!-- Theme Toggle Button -->
-            <button class="theme-toggle-btn" id="btnToggleTheme" aria-label="Toggle theme">
-                <svg class="theme-icon" viewBox="0 0 24 24" width="20" height="20">
-                    <!-- Moon icon (shown in light mode) -->
-                    <path class="icon-moon" fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    <!-- Sun icon (shown in dark mode) -->
-                    <circle class="icon-sun" fill="currentColor" cx="12" cy="12" r="5" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="12" y1="1" x2="12" y2="3" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="12" y1="21" x2="12" y2="23" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="4.22" y1="4.22" x2="5.64" y2="5.64" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="18.36" y1="18.36" x2="19.78" y2="19.78" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="1" y1="12" x2="3" y2="12" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="21" y1="12" x2="23" y2="12" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="4.22" y1="19.78" x2="5.64" y2="18.36" style="display: none;"/>
-                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="18.36" y1="5.64" x2="19.78" y2="4.22" style="display: none;"/>
-                </svg>
-            </button>
-            
-            <!-- Minimalist Language Toggle System -->
-            <div class="lang-switcher">
-                <button id="btnLangEN" class="lang-btn active-lang">EN</button>
-                <span class="lang-divider">/</span>
-                <button id="btnLangJP" class="lang-btn">JP</button>
-            </div>
-
-            <!-- Hamburger Button For Social Overlay Dropdown Menu -->
-            <button class="hamburger-btn" id="btnToggleSocials" aria-label="Toggle social menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-        </div>
-
-        <!-- Hidden Slider Panel Container Menu -->
-        <div class="social-dropdown-panel" id="socialDropdownPanel" aria-hidden="true">
+        <nav class="main-nav">
+            <a href="#" id="navHome" class="active">Home</a>
+            <a href="#" id="navWorks">Works</a>
             <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
-            <a href="https://artstation.com" target="_blank" rel="noopener">Artstation</a>
-            <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://deviantart.com" target="_blank" rel="noopener">Deviantart</a>
-        </div>
+        </nav>
     </header>
 
-    <!-- VIEW CONTAINER 1: Home Landing View -->
+    <!-- VIEW CONTAINER 1: Home Landing View (Hero + 3 Columns Grid) -->
     <main id="viewLanding" class="view-section active-view">
         
-        <!-- Cinematic Fullscreen Hero Stage Section -->
+        <!-- Cinematic Fullscreen Hero Stage Header Section -->
         <section class="hero-stage">
             <div class="hero-image-wrap">
                 <img src="images/full/walalalar.webp" alt="Featured Masterpiece" class="hero-bg-img">
             </div>
             <div class="hero-content">
-                <blockquote class="hero-quote" data-en="\" * wooahh .. \"" data-jp="「 * わぁぁ .. 」">
+                <blockquote class="hero-quote">
                     " * wooahh .. "
                 </blockquote>
             </div>
-            <button class="scroll-down-btn" id="btnScrollToGrid" aria-label="Scroll down">
+            <!-- Pulsing Scroll Down Target Indicator -->
+            <button class="scroll-down-btn" id="btnScrollToGrid" aria-label="Scroll down to columns">
                 <span class="chevron"></span>
                 <span class="chevron"></span>
             </button>
         </section>
 
-        <!-- Front Page Floating 3-Column System Context -->
-        <div class="floating-grid-wrapper">
-            <div class="category-grid" id="landingCategoryGrid">
-                
-                <!-- Column 1: 2D Art -->
-                <div class="category-card card-2d" data-category="2d">
-                    <div class="card-image-wrap">
-                        <img src="images/full/woahh.webp" alt="2D Digital Art Collection" class="parallax-img">
-                    </div>
-                    <div class="card-overlay">
-                        <h2 data-en="2D原画" data-jp="2D原画">2D原画</h2>
-                        <p data-en="DIGITAL 2D" data-jp="デジタル 2D">DIGITAL 2D</p>
-                        
-                        <div class="card-sub-menu">
-                            <button class="sub-style-btn" data-filter-style="anime" data-en="Stylized Works (アニメ)" data-jp="スタイライズド (アニメ)">
-                                Stylized Works <span>(アニメ)</span>
-                            </button>
-                            <button class="sub-style-btn" data-filter-style="thick" data-en="Thick Paint Works (厚塗り)" data-jp="厚塗り作品 (厚塗り)">
-                                Thick Paint Works <span>(厚塗り)</span>
-                            </button>
-                        </div>
+        <!-- Front Page 3-Column Split Entry System -->
+        <div class="category-grid" id="landingCategoryGrid">
+            
+            <!-- Column 1: 2D Digital Art with Floating Sub-Style Menu Target -->
+            <div class="category-card card-2d" data-category="2d">
+                <div class="card-image-wrap">
+                    <img src="images/full/woahh.webp" alt="2D Digital Art Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>2D原画</h2>
+                    <p>DIGITAL 2D</p>
+                    
+                    <!-- Floating Sub-Style Controls Navigation Links -->
+                    <div class="card-sub-menu">
+                        <button class="sub-style-btn" data-filter-style="anime">
+                            Stylized Works <span>(アニメ)</span>
+                        </button>
+                        <button class="sub-style-btn" data-filter-style="thick">
+                            Thick Paint Works <span>(厚塗り)</span>
+                        </button>
                     </div>
                 </div>
-
-                <!-- Column 2: 3D Art Slot -->
-                <div class="category-card card-empty" data-category="3d">
-                    <div class="card-image-wrap">
-                        <div class="empty-placeholder-mesh"></div>
-                    </div>
-                    <div class="card-overlay">
-                        <h2 data-en="3D雕像" data-jp="3D彫刻">3D雕像</h2>
-                        <p data-en="DIGITAL 3D" data-jp="デジタル 3D">DIGITAL 3D</p>
-                    </div>
-                </div>
-
-                <!-- Column 3: Animation Slot -->
-                <div class="category-card card-empty" data-category="animation">
-                    <div class="card-image-wrap">
-                        <div class="empty-placeholder-mesh"></div>
-                    </div>
-                    <div class="card-overlay">
-                        <h2 data-en="动画" data-jp="アニメーション">动画</h2>
-                        <p data-en="ANIMATION" data-jp="アニメーション">ANIMATION</p>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- Column 2: 3D Digital Sculptures -->
+            <div class="category-card" data-category="3d">
+                <div class="card-image-wrap">
+                    <img src="https://picsum.photos" alt="3D Sculpting Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>3D雕像</h2>
+                    <p>DIGITAL 3D</p>
+                </div>
+            </div>
+
+            <!-- Column 3: Animation Projects -->
+            <div class="category-card" data-category="animation">
+                <div class="card-image-wrap">
+                    <img src="https://picsum.photos" alt="Animation Collection" class="parallax-img">
+                </div>
+                <div class="card-overlay">
+                    <h2>动画</h2>
+                    <p>ANIMATION</p>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <!-- VIEW CONTAINER 2: Gallery Archive View -->
+    <!-- VIEW CONTAINER 2: Chronological Multi-Style Archive View -->
     <section id="viewGalleryArchive" class="view-section">
-        <div class="archive-container-fluid">
-            <div class="archive-container">
-                
-                <!-- Timeline Era Segment: 2026 -->
-                <div class="archive-year-group">
-                    <h3 class="year-header">2026</h3>
-                    <div class="archive-grid">
-                        
-                        <div class="thumb-item" 
-                             data-style="anime" 
-                             data-full="images/full/Gothic veil lady.webp" 
-                             data-title="Gothic Anime Character" 
-                             data-desc="Opal乳白色 stylized production design framework reference node.">
-                            <img src="images/thumbs/Gothic veil lady thumb.webp" alt="Artwork">
-                        </div>
-
-                        <div class="thumb-item" 
-                             data-style="anime" 
-                             data-full="images/full/lolipop girl.webp" 
-                             data-title="she lolipopin" 
-                             data-desc="Opal乳白色 stylized production design framework reference node.">
-                            <img src="images/thumbs/lolipop girl thumb.webp" alt="Artwork">
-                        </div>
-
-                        <div class="thumb-item" 
-                             data-style="anime" 
-                             data-full="images/full/sailorcat.webp" 
-                             data-title="she lolipopin" 
-                             data-desc="Opal乳白色 stylized production design framework reference node.">
-                            <img src="images/thumbs/sailorcat thumb.webp" alt="Artwork">
-                        </div>
-
-                        <div class="thumb-item" 
-                             data-style="thick" 
-                             data-full="images/full/erica agin.webp" 
-                             data-title="Winged Guardian" 
-                             data-desc="Experimental fluid painterly thickness illustration assignment copy file.">
-                            <img src="images/full/erica agin.webp" alt="Artwork">
-                        </div>
-
+        <div class="archive-container">
+            
+            <!-- Timeline Era Segment: 2026 -->
+            <div class="archive-year-group">
+                <h3 class="year-header">2026</h3>
+                <div class="archive-grid">
+                    
+                    <!-- Item Block A: Anime Styled Art Variant -->
+                    <div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/Gothic veil lady.webp" 
+                         data-title="Gothic Anime Character" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/Gothic veil lady thumb.webp" alt="Anime Illustration Artwork Copy">
                     </div>
-                </div>
 
+<div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/lolipop girl.webp" 
+                         data-title="she lolipopin" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/lolipop girl thumb.webp" alt="Anime Illustration Artwork Copy">
+                    </div>
+
+<div class="thumb-item" 
+                         data-style="anime" 
+                         data-full="images/full/sailorcat.webp" 
+                         data-title="she lolipopin" 
+                         data-desc="Opal乳白色 stylized production design framework reference node.">
+                        <img src="images/thumbs/sailorcat thumb.webp" alt="Anime Illustration Artwork Copy">
+                    </div>
+
+
+                    <!-- Item Block B: Thick Paint Technique Variant -->
+                    <div class="thumb-item" 
+                         data-style="thick" 
+                         data-full="images/full/erica agin.webp" 
+                         data-title="Winged Guardian" 
+                         data-desc="Experimental fluid painterly thickness illustration assignment copy file.">
+                        <img src="images/full/erica agin.webp" alt="Thick Paint Master Copy Artwork">
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </section>
 
-    <!-- GLOBAL COMPACT FOOTER SYSTEM -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="contact-card-zone">
-                <h3 data-en="Contact" data-jp="お問い合わせ">Contact</h3>
-                <div class="deco-line"><span>✦</span></div>
-                <a href="mailto:art@opal.com" class="footer-email-btn">ART@OPAL.COM</a>
-                <p class="footer-inquiry-note" data-en="For business inquiries, English / 日本語 = OK!" data-jp="ビジネスに関するお問い合わせ、English / 日本語 = OK!">
-                    For business inquiries, English / 日本語 = OK!
-                </p>
-            </div>
-            <div class="footer-bottom-row">
-                <div class="footer-logo">Opal乳白色</div>
-                <p class="copyright-label">&copy; 2026 Opal. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- LIGHTBOX MODAL OVERLAY COMPONENT -->
+    <!-- STAGE 3: Immersive Core Popup Lightbox Overlay Modal Component -->
     <div id="lightboxModal" class="lightbox-modal" aria-hidden="true">
         <button class="lightbox-arrow arrow-left" id="lbPrev" aria-label="Previous artwork">&lsaquo;</button>
+        
         <div class="lightbox-content">
-            <img id="lightboxMainImg" src="" alt="Active Canvas Artwork">
+            <img id="lightboxMainImg" src="" alt="Active Canvas Artwork Viewport">
         </div>
+
         <button class="lightbox-arrow arrow-right" id="lbNext" aria-label="Next artwork">&rsaquo;</button>
 
         <footer class="lightbox-footer">
             <div class="lightbox-meta">
                 <h4 id="lbTitle">作品简介:</h4>
-                <p id="lbDesc">Descriptive text matrix layout placeholder.</p>
+                <p id="lbDesc">Descriptive text line placeholder information layout matrix node.</p>
             </div>
             <div class="lightbox-actions">
-                <button class="action-btn" id="btnZoomHD" title="Zoom In">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.7[...]
-                    <span data-en="Zoom HD" data-jp="高精細拡大">高清放大</span>
+                <button class="action-btn" id="btnZoomHD" title="Deep Zoom Engine Terminal Context">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.7[...]"></path></svg>
+                    <span>高清放大</span>
                 </button>
-                <button class="action-btn" id="btnDownloadAsset" title="Download">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L5.33 8.67h4V14h5.34V8.67h4L12 2z"/></svg>
-                    <span data-en="Download" data-jp="ダウンロード">下载</span>
+                <button class="action-btn" id="btnDownloadAsset" title="Physical Asset Download Direct Path">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L5.33 8.67h4V14h5.34V8.67h4L12 2z"></path></svg>
+                    <span>下载</span>
                 </button>
-                <button class="action-btn" id="btnCloseLightbox" title="Close">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>[...]
-                    <span data-en="Close" data-jp="閉じる">关闭</span>
+                <button class="action-btn" id="btnCloseLightbox" title="Return to Archive Framework Grid">
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+                    <span>关闭</span>
                 </button>
             </div>
         </footer>
