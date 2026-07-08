@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+ 
     <!-- Global Fixed Navigation Header Menu -->
     <header class="site-header">
         <div class="logo">Opal乳白色</div>
@@ -17,6 +17,24 @@
                 <a href="#" id="navHome" class="active" data-en="Home" data-jp="ホーム">Home</a>
                 <a href="#" id="navWorks" data-en="Works" data-jp="作品">Works</a>
             </nav>
+            
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" id="btnToggleTheme" aria-label="Toggle theme">
+                <svg class="theme-icon" viewBox="0 0 24 24" width="20" height="20">
+                    <!-- Moon icon (shown in light mode) -->
+                    <path class="icon-moon" fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    <!-- Sun icon (shown in dark mode) -->
+                    <circle class="icon-sun" fill="currentColor" cx="12" cy="12" r="5" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="12" y1="1" x2="12" y2="3" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="12" y1="21" x2="12" y2="23" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="4.22" y1="4.22" x2="5.64" y2="5.64" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="18.36" y1="18.36" x2="19.78" y2="19.78" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="1" y1="12" x2="3" y2="12" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="21" y1="12" x2="23" y2="12" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="4.22" y1="19.78" x2="5.64" y2="18.36" style="display: none;"/>
+                    <line class="icon-sun" stroke="currentColor" stroke-width="2" x1="18.36" y1="5.64" x2="19.78" y2="4.22" style="display: none;"/>
+                </svg>
+            </button>
             
             <!-- Minimalist Language Toggle System -->
             <div class="lang-switcher">
@@ -51,8 +69,8 @@
                 <img src="images/full/walalalar.webp" alt="Featured Masterpiece" class="hero-bg-img">
             </div>
             <div class="hero-content">
-                <blockquote class="hero-quote" data-en="“ * wooahh .. ”" data-jp="「 * わぁぁ .. 」">
-                    “ * wooahh .. ”
+                <blockquote class="hero-quote" data-en="\" * wooahh .. \"" data-jp="「 * わぁぁ .. 」">
+                    " * wooahh .. "
                 </blockquote>
             </div>
             <button class="scroll-down-btn" id="btnScrollToGrid" aria-label="Scroll down">
@@ -193,7 +211,7 @@
             </div>
             <div class="lightbox-actions">
                 <button class="action-btn" id="btnZoomHD" title="Zoom In">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.7[...]
                     <span data-en="Zoom HD" data-jp="高精細拡大">高清放大</span>
                 </button>
                 <button class="action-btn" id="btnDownloadAsset" title="Download">
@@ -201,7 +219,7 @@
                     <span data-en="Download" data-jp="ダウンロード">下载</span>
                 </button>
                 <button class="action-btn" id="btnCloseLightbox" title="Close">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    <svg viewBox="0 0 24 24" class="icon-svg"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>[...]
                     <span data-en="Close" data-jp="閉じる">关闭</span>
                 </button>
             </div>
@@ -211,4 +229,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

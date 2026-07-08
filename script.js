@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnToggleSocials = document.getElementById('btnToggleSocials');
     const socialDropdownPanel = document.getElementById('socialDropdownPanel');
 
+    // --- Theme Toggle Selectors ---
+    const btnToggleTheme = document.getElementById('btnToggleTheme');
+    const themeIconMoon = document.querySelector('.icon-moon');
+    const themeIconsSun = document.querySelectorAll('.icon-sun');
+
     // --- EN / JP Language Click Handles ---
     const btnLangEN = document.getElementById('btnLangEN');
     const btnLangJP = document.getElementById('btnLangJP');
@@ -35,6 +40,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentGallerySet = [];
     let currentPointerIndex = 0;
     let currentLanguageCode = 'en';
+
+    // --- Theme State Initialization ---
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+    }
+
+    function setTheme(theme) {
+        const html = document.documentElement;
+        if (theme === 'light') {
+            html.classList.add('light-mode');
+            if (themeIconMoon) themeIconMoon.style.display = 'none';
+            themeIconsSun.forEach(icon => icon.style.display = 'block');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.remove('light-mode');
+            if (themeIconMoon) themeIconMoon.style.display = 'block';
+            themeIconsSun.forEach(icon => icon.style.display = 'none');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const isLightMode = html.classList.contains('light-mode');
+        setTheme(isLightMode ? 'dark' : 'light');
+    }
+
+    if (btnToggleTheme) {
+        btnToggleTheme.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleTheme();
+        });
+    }
+
+    // Initialize theme on page load
+    initTheme();
 
     // --- View Route Router Switcher ---
     function navigateToView(targetView, fallbackActiveLink) {
@@ -181,6 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currentGallerySet = allThumbnails.filter(item => !item.classList.contains('filtered-out'));
             currentPointerIndex = currentGallerySet.indexOf(thumbnail);
             renderActiveLightboxNode(thumbnail);
+            
+            // Show mobile navigation arrows
+            updateMobileArrows();
         });
     });
 
@@ -204,6 +249,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentGallerySet.length === 0) return;
         currentPointerIndex = (currentPointerIndex + directionMultiplier + currentGallerySet.length) % currentGallerySet.length;
         renderActiveLightboxNode(currentGallerySet[currentPointerIndex]);
+    }
+
+    function updateMobileArrows() {
+        const isMobile = window.innerWidth <= 768;
+        if (lbPrev && lbNext) {
+            if (isMobile) {
+                lbPrev.classList.add('mobile-visible');
+                lbNext.classList.add('mobile-visible');
+            } else {
+                lbPrev.classList.remove('mobile-visible');
+                lbNext.classList.remove('mobile-visible');
+            }
+        }
     }
 
     if (lbNext) lbNext.addEventListener('click', () => switchSlidePosition(1));  
@@ -239,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = lightboxMainImg.src;
             const w = window.open('', '_blank');
             if (!w) return;
-            w.document.write(`<!DOCTYPE html><html><head><title>Opal乳白色 | Canvas Inspector</title><style>body{margin:0;background:#000;overflow:hidden;display:flex;justify-content:center;align-items:center;width:100vw;height:100vh;user-select:none;-webkit-user-select:none;}.wrap{width:100%;height:100%;display:flex;justify-content:center;align-items:center;cursor:grab;}.wrap:active{cursor:grabbing;}img{max-width:95%;max-height:95%;object-fit:contain;transition:transform 0.12s ease-out;transform-origin:center;will-change:transform;}.dock{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,0.9);border:1px solid rgba(255,255,255,0.08);border-radius:40px;padding:8px 30px;display:flex;gap:25px;z-index:1000;}button{background:none;border:none;color:#aaa;font-size:24px;cursor:pointer;padding:5px 12px;transition:color 0.2s;}button:hover{color:#fff;}</style></head><body><div class="wrap" id="stg"><img id="trg" src="${url}"></div><div class="dock"><button id="in">+</button><button id="out">-</button><button id="rst">⟲</button></div><script>const img=document.getElementById('trg'),stg=document.getElementById('stg');let sc=1,df=0,x,y,dx=0,dy=0;function up(){img.style.transform='translate('+dx+'px,'+dy+'px) scale('+sc+')';}document.getElementById('in').addEventListener('click',ExternalIn);function ExternalIn(){sc+=0.35;up();}document.getElementById('out').addEventListener('click',ExternalOut);function ExternalOut(){if(sc>0.4)sc-=0.35;up();}document.getElementById('rst').addEventListener('click',ExternalRst);function ExternalRst(){sc=1;dx=0;dy=0;up();}window.addEventListener('wheel',e=>{e.preventDefault();if(e.deltaY<0)sc+=0.12;else if(sc>0.35)sc-=0.12;up();},{passive:false});stg.addEventListener('mousedown',e=>{df=1;x=e.clientX-dx;y=e.clientY-dy;});window.addEventListener('mousemove',e=>{if(!df)return;dx=e.clientX-x;dy=e.clientY-y;up();});window.addEventListener('mouseup',()=>{df=0;});<\/script></body></html>`);
+            w.document.write(`<!DOCTYPE html><html><head><title>Opal乳白色 | Canvas Inspector</title><style>body{margin:0;background:#000;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100vh}img{max-width:100%;max-height:100%;object-fit:contain}<\/style><\/head><body><img src="${url}" alt="Full Resolution Canvas"><\/body><\/html>`);
             w.document.close();
         });
     }
@@ -253,6 +311,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightboxModal.setAttribute('aria-hidden', 'true');
                 lightboxMainImg.src = "";
             }
+        }
+    });
+
+    // --- Mobile Touch Swipe Support for Lightbox ---
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleSwipe() {
+        if (lightboxModal && lightboxModal.getAttribute('aria-hidden') === 'false') {
+            if (touchEndX < touchStartX - 50) {
+                switchSlidePosition(1); // Swipe left = next
+            }
+            if (touchEndX > touchStartX + 50) {
+                switchSlidePosition(-1); // Swipe right = previous
+            }
+        }
+    }
+
+    lightboxModal?.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    lightboxModal?.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    // --- Responsive arrow visibility on resize ---
+    window.addEventListener('resize', () => {
+        if (lightboxModal && lightboxModal.getAttribute('aria-hidden') === 'false') {
+            updateMobileArrows();
         }
     });
 });
